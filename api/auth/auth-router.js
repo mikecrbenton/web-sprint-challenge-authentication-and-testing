@@ -62,7 +62,6 @@ router.post('/register', async (req, res, next) => {
 
       const newUser = await add({
 			username: req.body.username,
-			// hash the password with a time complexity set to the system (.env variable )
 			password: await bcrypt.hash(req.body.password, 12),
 		})
 
@@ -118,11 +117,11 @@ router.post('/login', async (req, res, next) => {
 		}
 
       // jwt.sign( payload, secretOrPrivateKey, [options,callback])
-      const token = jwt.sign({ id: user.id, username: user.username}, process.env.JWT_SECRET)
+      const token = jwt.sign({ id: user.id, username: user.username}, process.env.JWT_SECRET )
 
       res.json({
          message: `welcome ${user.username}!`, 
-         token: token // TOKEN IS RETURNED IN THE RESPONSE BODY======
+         token: token 
 		})
      
   }catch(err){

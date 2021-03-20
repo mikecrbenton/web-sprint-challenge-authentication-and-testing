@@ -1,3 +1,5 @@
+require("dotenv").config() // NEEDED TO ADD THIS TO MAKE ENV VARIABLES WORK
+
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
@@ -15,6 +17,12 @@ server.use(express.json());
 
 server.use('/api/auth', authRouter);
 server.use('/api/jokes', restrict, jokesRouter); // only logged-in users should have access!
+
+server.get("/", (req, res) => {
+	res.json({
+		message: "Welcome to our API",
+	})
+})
 
 server.use((err, req, res, next) => {
 	console.log(err)
